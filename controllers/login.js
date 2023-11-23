@@ -20,10 +20,10 @@ loginRouter.post("/", async (req, res) => {
   }
 
   //check if password is correct
-  //   const isAuthenticated = await bcrypt.compare(password, user.passwordHash);
+   const isAuthenticated = await bcrypt.compare(password, user.passwordHash);
 
   // if the password is incorrect, return an error
-  if (password != user.passwordHash) {
+  if (!isAuthenticated) {
     return res.status(401).json({
       message: "password is incorrect",
     });
