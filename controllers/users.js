@@ -30,7 +30,9 @@ usersRouter.post("/", async (req, res) => {
     // send the savedUser as response
     res.json(savedUser);
   } else {
-    response.status(409).json({ message: "user already exist" });
+     return res.status(409).json({
+      message: "user already exist",
+    });
   }
 });
 
