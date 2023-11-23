@@ -1,6 +1,7 @@
 const usersRouter = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../model/user");
+const { response } = require("express");
 
 
 
@@ -29,7 +30,7 @@ usersRouter.post("/", async (req, res) => {
     // send the savedUser as response
     res.json(savedUser);
   } else {
-    res.json({ message: "user already exist" });
+    response.status(409).json({ message: "user already exist" });
   }
 });
 
