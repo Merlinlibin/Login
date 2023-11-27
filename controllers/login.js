@@ -18,9 +18,9 @@ loginRouter.post("/", async (req, res) => {
       message: "user does not exist",
     });
   }
-
+// const userpassword = await bcrypt.hash(password, 10);
   //check if password is correct
-   const isAuthenticated = bcrypt.compare(password, user.passwordHash);
+  const isAuthenticated = await bcrypt.compare(password, user.passwordHash).then(res=>res);
 
   // if the password is incorrect, return an error
   if (!isAuthenticated) {
@@ -45,7 +45,6 @@ loginRouter.post("/", async (req, res) => {
     email: user.email,
   });
 });
-
 
 // export the user router
 module.exports = loginRouter;
