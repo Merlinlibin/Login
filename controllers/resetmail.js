@@ -5,6 +5,7 @@ const User = require("../model/user");
 resetmailRouter.post("/", async (req, res) => {
   // get the user details from the request body
   const { email } = req.body;
+  resetURL = "https://glittery-smakager-a5dd53.netlify.app/forgetpassword/";
 
   //check weather user already registered or not
   const user = await User.findOne({ email });
@@ -17,18 +18,25 @@ resetmailRouter.post("/", async (req, res) => {
 
   if (user) {
     var transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
-        user: 'merlinlibin3@gmail.com',
-        pass: '#Merlinlibin96'
+        user: "merlinlibinmerlin@gmail.com",
+        pass: "gtpvydtmshtlkjdi",
       },
     });
 
     var mailOptions = {
-      from: "merlinlibin3@gmail.com",
+      from: "merlinlibinmerlin@gmail.com",
       to: email,
-      subject: "Sending Email to reset the password",
-      text: "http://localhost:3000/api/passwordReset/",
+      subject: "Email to reset the password",
+      text: `
+            Hi ${email.split("@")[0]},
+
+            There was a request to change your password!
+
+            If you did not make this request then please ignore this email.
+
+            Otherwise, please click this link to change your password: ${resetURL} .`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
