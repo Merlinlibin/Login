@@ -13,7 +13,6 @@ loginRouter.post("/", async (req, res) => {
     //check weather user already registered or not
     const user = await User.findOne({ email });
 
-   
     // if the user does not exist, return an error
     if (!user) {
       return res.status(401).json({
@@ -21,11 +20,14 @@ loginRouter.post("/", async (req, res) => {
       });
     }
 
- 
+    // const saltRounds = 10;
+    // const userpassword = await bcrypt.hashSync(password, 10);
+    //check if password is correct
+   
     const isAuthenticated = await bcrypt.compare(
       Password,
       user.passwordHash,
-      
+     
     );
 
     // if the password is incorrect, return an error
