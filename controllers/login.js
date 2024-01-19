@@ -8,23 +8,25 @@ const config = require("../utlis/config");
 loginRouter.post("/", async (req, res) => {
   // get the user details from the request body
   try {
-    const { email, password } = req.body;
+    const { email, Password } = req.body;
 
     //check weather user already registered or not
     const user = await User.findOne({ email });
-    console.log(user);
+
+   
     // if the user does not exist, return an error
     if (!user) {
       return res.status(401).json({
         message: "user does not exist",
       });
     }
-    // const saltRounds = 10;
-    // const userpassword = await bcrypt.hash(password, saltRounds);
-    //check if password is correct
-    const isAuthenticated = await bcrypt
-      .compare(password, user.passwordHash)
-      .then((res) => res);
+
+ 
+    const isAuthenticated = await bcrypt.compare(
+      Password,
+      user.passwordHash,
+      
+    );
 
     // if the password is incorrect, return an error
     if (!isAuthenticated) {
