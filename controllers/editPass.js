@@ -5,7 +5,7 @@ const User = require("../model/user");
 // to create a new user or register a new user
 editPassRouter.patch("/", async (req, res) => {
   // get the user details from the request body
-  const { email, newPassword } = req.body;
+  const { email, newPassword,OTP } = req.body;
 
   //check weather user already registered or not
   const user = await User.findOne({ email });
@@ -18,7 +18,7 @@ editPassRouter.patch("/", async (req, res) => {
   }
 
 
-  if (user) {
+  if (user.randomStr == OTP) {
     // hash the password and store it in the passwordHash variable
     const salt = 10;
     const newpasswordHash = await bcrypt
@@ -36,6 +36,8 @@ editPassRouter.patch("/", async (req, res) => {
     );
     // send the savedUser as response
     res.json(savedUser);
+  } else {
+    return res.status(403).send("Wrong OTP");
   }
 });
 

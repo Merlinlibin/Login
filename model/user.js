@@ -21,6 +21,9 @@ const userschema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  randomStr: {
+    type: String
+  }
 });
 
 module.exports = mongoose.model("User", userschema, "users");
